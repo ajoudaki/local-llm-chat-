@@ -42,8 +42,9 @@ model:
   inline_model_loading: true
 
   # Maximum sequence length (context window)
-  # 8192 is a good balance for 70B models on 48GB VRAM
-  max_seq_len: 8192
+  # -1 = automatically use model's max from config.json
+  # Can be reduced per-request from UI if needed
+  max_seq_len: -1
 
   # Enable tensor parallelism across multiple GPUs
   tensor_parallel: true
@@ -55,8 +56,9 @@ model:
   gpu_split: [20, 22]
 
   # Cache size in tokens (for KV cache)
-  # Should be <= max_seq_len, uses VRAM
-  cache_size: 8192
+  # This limits actual usable context. Higher = more VRAM
+  # 32K is a good balance for 48GB total VRAM
+  cache_size: 32768
 
   # Use 8-bit KV cache to save VRAM (slight quality tradeoff)
   cache_mode: Q8
