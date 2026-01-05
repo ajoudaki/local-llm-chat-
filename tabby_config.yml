@@ -48,10 +48,11 @@ model:
   # Enable tensor parallelism across multiple GPUs
   tensor_parallel: true
 
-  # GPU memory allocation
-  # "auto" = automatically distribute across available GPUs
-  # Can also specify explicit split like [24, 24] for manual control
-  gpu_split_auto: true
+  # GPU memory allocation - explicit split for balance
+  # GPU 0: 20GB (leave room for display/system ~2GB + headroom)
+  # GPU 1: 22GB (dedicated compute)
+  gpu_split_auto: false
+  gpu_split: [20, 22]
 
   # Cache size in tokens (for KV cache)
   # Should be <= max_seq_len, uses VRAM
